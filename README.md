@@ -8,10 +8,12 @@ Ubuntu: Largest of the group, typically 70–180 MB+. Uses glibc. Debian based O
 
 Create a calculator using a Python file and execute that file in the Alpine Linux environment present inside the container
 ------------------------------------------------------------------------------------------------------------------------
+```
+bash
 docker build -t my-python-app:v1 -f Dockerfile.calculator .
 docker run --rm -it --name my-calc-app my-python-app:v1 sh
 docker run --rm -it --name my-calc-app my-python-app:v1
-
+```
 
 How To Optimize Docker Image
 
@@ -24,18 +26,18 @@ Crucial for building efficient and secure applications.
 Dockerfile Best Practices for Efficient Image Building
 
 Minimize the Number of Layers: Minimize number of levels in the Dockerfile by combining instructions into a single RUN directive for related instructions. Each instruction in a Dockerfile (like RUN, COPY, ADD) creates a new layer in the image. To reduce image size and improve build performance, consolidate related commands into a single RUN instruction using the && operator.
-```sh
+```bash
 FROM base_image
 RUN apt-get update && \
     apt-get install -y package1 package2 && \
     apt-get clean
 ```
 Use Minimal Base Images: Always start with smallest, most appropriate base image for the application. Using a full-featured OS image like ubuntu can add hundreds of megabytes of unnecessary files. Instead, opt for minimal images like alpine, distroless, or slim variants of official images.
-```sh
+```bash
 FROM alpine:latest
 ```
 Use Docker Multistage Builds: For speeding up image building process, use Docker's multi-stage builds, that separate build needs from the final running environment. Multistage builds are a powerful feature for creating lean production images. They allow us to use one container image with a full build environment (the "builder" stage) to compile code or build assets, and then copy only the necessary artifacts into a separate, minimal production image. This separates build-time dependencies (like compilers, and development libraries) from runtime dependencies, drastically reducing the final image size.
-```sh
+```bash
 FROM build_image AS builder
 # Build your application
 FROM base_image
