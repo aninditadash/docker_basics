@@ -9,7 +9,7 @@ Ubuntu: Largest of the group, typically 70–180 MB+. Uses glibc. Debian based O
 Create a calculator using a Python file and execute that file in the Alpine Linux environment present inside the container
 ------------------------------------------------------------------------------------------------------------------------
 ```
-bash
+sh
 docker build -t my-python-app:v1 -f Dockerfile.calculator .
 docker run --rm -it --name my-calc-app my-python-app:v1 sh
 docker run --rm -it --name my-calc-app my-python-app:v1
